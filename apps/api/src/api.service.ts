@@ -1,8 +1,13 @@
 import { Injectable } from '@nestjs/common';
-
+import { AuthService } from './auth/auth.service';
 @Injectable()
 export class ApiService {
-  getHello(): string {
-    return 'Hello World!';
+  constructor(private authService: AuthService) {}
+  login(data) {
+    return this.authService.login(data);
+  }
+
+  register(data) {
+    return this.authService.createUser(data);
   }
 }
