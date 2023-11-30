@@ -1,5 +1,5 @@
 import {
-  IsDate,
+  IsDateString,
   IsEmail,
   IsNotEmpty,
   IsNumber,
@@ -17,19 +17,11 @@ export class LoginDTO {
   password: string;
 }
 
-export class RegisterDTO {
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
-
-  @IsString()
-  @MinLength(6)
-  password: string;
-
+export class ProfileDTO {
   @IsString()
   gender: string;
 
-  @IsDate()
+  @IsDateString()
   birthdate: Date;
 
   @IsString()
@@ -43,4 +35,20 @@ export class RegisterDTO {
 
   @IsNumber()
   weight: number;
+
+  @IsString()
+  interest: string;
+}
+
+export class RegisterDTO {
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
+  @IsString()
+  @MinLength(6)
+  password: string;
+
+  @IsString()
+  name: string;
 }

@@ -10,4 +10,8 @@ export class ApiService {
   register(data) {
     return this.authService.createUser(data);
   }
+
+  createProfile(id, data) {
+    return this.authService.createProfile(id, data);
+  }
 }

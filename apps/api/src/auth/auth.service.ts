@@ -10,15 +10,42 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+  async findById(id) {
+    return this.userModel.findById(id).lean();
+  }
+
+  async createProfile(id, data) {
+    const user = await this.userModel.findById(id);
+    if (!user) {
+      throw new HttpException('user not found', HttpStatus.BAD_REQUEST);
+    }
+
+    const updatedUser = await this.userModel
+      .findByIdAndUpdate(id, data, {
+        new: true,
+      })
+      .lean();
+
+    return updatedUser;
+  }
+
   async createUser(data) {
     const saltOrRounds = 10;
     data.hashedPassword = await bcrypt.hash(data.password, saltOrRounds);
+
+    const existingUser = await this.userModel.findOne({ email: data.email });
+
+    if (existingUser) {
+      throw new HttpException(
+        'user with this email already exists',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
 
     const user = await this.userModel.create(data);
 
     const payload = { sub: user._id.toString() };
 
-    console.log(payload);
     return {
       accessToken: this.jwtService.sign(payload),
     };
