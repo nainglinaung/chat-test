@@ -25,9 +25,6 @@ export class ProfileDTO {
   birthdate: Date;
 
   @IsString()
-  horoscope: string;
-
-  @IsString()
   zodiac: string;
 
   @IsNumber()

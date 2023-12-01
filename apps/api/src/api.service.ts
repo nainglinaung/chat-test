@@ -14,4 +14,12 @@ export class ApiService {
   createProfile(id, data) {
     return this.authService.createProfile(id, data);
   }
+
+  updateProfile(id, data) {
+    return this.authService.createProfile(id, data);
+  }
+
+  getProfile(id) {
+    return this.authService.findById(id);
+  }
 }

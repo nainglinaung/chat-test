@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
+import { calculateHoroscope } from 'apps/api/util/calculateHoroscope';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -15,15 +16,21 @@ export class AuthService {
   }
 
   async createProfile(id, data) {
-    const user = await this.userModel.findById(id);
+    const user = await this.findById(id);
     if (!user) {
       throw new HttpException('user not found', HttpStatus.BAD_REQUEST);
     }
 
+    const horoscope = calculateHoroscope(data.birthday);
+
     const updatedUser = await this.userModel
-      .findByIdAndUpdate(id, data, {
-        new: true,
-      })
+      .findByIdAndUpdate(
+        id,
+        { ...data, horoscope },
+        {
+          new: true,
+        },
+      )
       .lean();
 
     return updatedUser;

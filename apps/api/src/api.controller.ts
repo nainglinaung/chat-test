@@ -6,13 +6,14 @@ import {
   UseGuards,
   UseInterceptors,
   ClassSerializerInterceptor,
+  Get,
 } from '@nestjs/common';
 import { ApiService } from './api.service';
 import { LoginDTO, RegisterDTO, ProfileDTO } from './auth/auth.dto';
 import { AccessTokenGuard } from './auth/AccessTokenGuard';
 
 @UseInterceptors(ClassSerializerInterceptor)
-@Controller()
+@Controller('api')
 export class ApiController {
   constructor(private apiService: ApiService) {}
 
@@ -30,5 +31,17 @@ export class ApiController {
   @Post('/createProfile')
   createProfile(@Body() data: ProfileDTO, @Request() req) {
     return this.apiService.createProfile(req.user, data);
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Get('/getProfile')
+  getProfile(@Request() req) {
+    return this.apiService.getProfile(req.user);
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Post('/updateProfile')
+  updateProfile(@Body() data: ProfileDTO, @Request() req) {
+    return this.apiService.updateProfile(req.user, data);
   }
 }
