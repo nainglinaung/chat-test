@@ -11,11 +11,15 @@ import {
 import { ApiService } from './api.service';
 import { LoginDTO, RegisterDTO, ProfileDTO, MessageDTO } from './auth/auth.dto';
 import { AccessTokenGuard } from './auth/AccessTokenGuard';
+import { MessageService } from './message/message.service';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('api')
 export class ApiController {
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private messageService: MessageService,
+  ) {}
 
   @Post('/login')
   login(@Body() data: LoginDTO) {
@@ -46,8 +50,10 @@ export class ApiController {
   }
 
   @UseGuards(AccessTokenGuard)
-  @Post('/sendMessage')
-  sendMessage(@Body() message: MessageDTO) {
-    return this.apiService.sendMessage(message);
+  @Get('/getMessages')
+  async viewMessages(@Request() req) {
+    const data = await this.messageService.viewMessages(req.user._id);
+
+    return data;
   }
 }

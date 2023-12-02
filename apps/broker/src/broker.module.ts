@@ -5,8 +5,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MessageModule } from './message/message.module';
 import { ConfigModule } from '@nestjs/config';
 
-console.log(process.env.DATABASE_URL);
-
 @Module({
   imports: [
     ConfigModule.forRoot(),

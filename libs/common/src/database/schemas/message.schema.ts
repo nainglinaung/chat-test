@@ -23,13 +23,11 @@ export class Message {
 
 const schema = SchemaFactory.createForClass(Message);
 
-// schema.set('toJSON', {
-//   transform: function (doc, ret) {
-//     delete ret.hashedPassword;
-//     delete ret.__v;
-//     delete ret._id;
-//   },
-// });
+schema.set('toJSON', {
+  transform: function (doc, ret) {
+    return ret;
+  },
+});
 
 // schema.pre<User>('findOneAndUpdate', function (next) {
 //   const birthDate = new Date(this._update.birthdate);

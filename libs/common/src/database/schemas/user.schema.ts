@@ -48,6 +48,14 @@ export class User {
 
 const schema = SchemaFactory.createForClass(User);
 
+schema.set('toObject', {
+  transform: function (doc, ret) {
+    delete ret.hashedPassword;
+    delete ret.__v;
+    delete ret._id;
+  },
+});
+
 schema.set('toJSON', {
   transform: function (doc, ret) {
     delete ret.hashedPassword;

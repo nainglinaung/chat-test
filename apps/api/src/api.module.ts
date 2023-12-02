@@ -4,23 +4,13 @@ import { ApiService } from './api.service';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { MessageModule } from './message/message.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
     AuthModule,
     MongooseModule.forRoot(process.env.DATABASE_URL),
-    ClientsModule.register([
-      {
-        name: 'BROKER_SERVICE',
-        transport: Transport.RMQ,
-        options: {
-          queue: 'broker_queue',
-          queueOptions: { durable: false },
-          urls: ['amqp://user:password@localhost:5672'],
-        },
-      },
-    ]),
+    MessageModule,
   ],
   controllers: [ApiController],
   providers: [ApiService],
