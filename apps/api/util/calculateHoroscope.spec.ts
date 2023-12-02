@@ -1,58 +1,58 @@
-import { calculateHoroscope, ZodiacSign } from './calculateHoroscope';
+import { calculateHoroscope, HoroscopeSign } from './calculateHoroscope';
 
 interface TestCase {
   inputDate: Date;
-  expectedSign: ZodiacSign | null;
+  expectedSign: HoroscopeSign | null;
 }
 
 const testCases: TestCase[] = [
   {
     inputDate: new Date('2023-03-19T00:00:00.000Z'),
-    expectedSign: ZodiacSign.Pisces,
+    expectedSign: HoroscopeSign.Pisces,
   },
   {
     inputDate: new Date('2023-03-23T00:00:00.000Z'),
-    expectedSign: ZodiacSign.Aries,
+    expectedSign: HoroscopeSign.Aries,
   },
   {
     inputDate: new Date('2023-04-25T00:00:00.000Z'),
-    expectedSign: ZodiacSign.Taurus,
+    expectedSign: HoroscopeSign.Taurus,
   },
   {
     inputDate: new Date('2023-05-28T00:00:00.000Z'),
-    expectedSign: ZodiacSign.Gemini,
+    expectedSign: HoroscopeSign.Gemini,
   },
   {
     inputDate: new Date('2023-06-22T00:00:00.000Z'),
-    expectedSign: ZodiacSign.Cancer,
+    expectedSign: HoroscopeSign.Cancer,
   },
   {
     inputDate: new Date('2023-08-01T00:00:00.000Z'),
-    expectedSign: ZodiacSign.Leo,
+    expectedSign: HoroscopeSign.Leo,
   },
   {
     inputDate: new Date('2023-09-22T00:00:00.000Z'),
-    expectedSign: ZodiacSign.Virgo,
+    expectedSign: HoroscopeSign.Virgo,
   },
   {
     inputDate: new Date('2023-10-22T00:00:00.000Z'),
-    expectedSign: ZodiacSign.Libra,
+    expectedSign: HoroscopeSign.Libra,
   },
   {
     inputDate: new Date('2023-11-21T00:00:00.000Z'),
-    expectedSign: ZodiacSign.Scorpio,
+    expectedSign: HoroscopeSign.Scorpio,
   },
   {
     inputDate: new Date('2023-12-21T00:00:00.000Z'),
-    expectedSign: ZodiacSign.Sagittarius,
+    expectedSign: HoroscopeSign.Sagittarius,
   },
   {
     inputDate: new Date('2024-12-22T00:00:00.000Z'),
-    expectedSign: ZodiacSign.Capricorn,
+    expectedSign: HoroscopeSign.Capricorn,
   },
   {
     inputDate: new Date('2024-01-20T00:00:00.000Z'),
-    expectedSign: ZodiacSign.Aquarius,
+    expectedSign: HoroscopeSign.Aquarius,
   },
   { inputDate: new Date(NaN), expectedSign: null },
 ];

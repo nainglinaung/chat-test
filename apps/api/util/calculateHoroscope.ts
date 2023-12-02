@@ -1,4 +1,4 @@
-export enum ZodiacSign {
+export enum HoroscopeSign {
   Aries = 'Aries',
   Taurus = 'Taurus',
   Gemini = 'Gemini',
@@ -14,7 +14,7 @@ export enum ZodiacSign {
 }
 
 interface HoroscopeRange {
-  sign: ZodiacSign;
+  sign: HoroscopeSign;
   startMonth: number;
   startDay: number;
   endMonth: number;
@@ -23,84 +23,84 @@ interface HoroscopeRange {
 
 const horoscopeRanges: HoroscopeRange[] = [
   {
-    sign: ZodiacSign.Aries,
+    sign: HoroscopeSign.Aries,
     startMonth: 3,
     startDay: 21,
     endMonth: 4,
     endDay: 19,
   },
   {
-    sign: ZodiacSign.Taurus,
+    sign: HoroscopeSign.Taurus,
     startMonth: 4,
     startDay: 20,
     endMonth: 5,
     endDay: 20,
   },
   {
-    sign: ZodiacSign.Gemini,
+    sign: HoroscopeSign.Gemini,
     startMonth: 5,
     startDay: 21,
     endMonth: 6,
     endDay: 20,
   },
   {
-    sign: ZodiacSign.Cancer,
+    sign: HoroscopeSign.Cancer,
     startMonth: 6,
     startDay: 21,
     endMonth: 7,
     endDay: 22,
   },
   {
-    sign: ZodiacSign.Leo,
+    sign: HoroscopeSign.Leo,
     startMonth: 7,
     startDay: 23,
     endMonth: 8,
     endDay: 22,
   },
   {
-    sign: ZodiacSign.Virgo,
+    sign: HoroscopeSign.Virgo,
     startMonth: 8,
     startDay: 23,
     endMonth: 9,
     endDay: 22,
   },
   {
-    sign: ZodiacSign.Libra,
+    sign: HoroscopeSign.Libra,
     startMonth: 9,
     startDay: 23,
     endMonth: 10,
     endDay: 22,
   },
   {
-    sign: ZodiacSign.Scorpio,
+    sign: HoroscopeSign.Scorpio,
     startMonth: 10,
     startDay: 23,
     endMonth: 11,
     endDay: 21,
   },
   {
-    sign: ZodiacSign.Sagittarius,
+    sign: HoroscopeSign.Sagittarius,
     startMonth: 11,
     startDay: 22,
     endMonth: 12,
     endDay: 21,
   },
   {
-    sign: ZodiacSign.Capricorn,
+    sign: HoroscopeSign.Capricorn,
     startMonth: 12,
     startDay: 22,
     endMonth: 1,
     endDay: 19,
   },
   {
-    sign: ZodiacSign.Aquarius,
+    sign: HoroscopeSign.Aquarius,
     startMonth: 1,
     startDay: 20,
     endMonth: 2,
     endDay: 18,
   },
   {
-    sign: ZodiacSign.Pisces,
+    sign: HoroscopeSign.Pisces,
     startMonth: 2,
     startDay: 19,
     endMonth: 3,
@@ -108,7 +108,7 @@ const horoscopeRanges: HoroscopeRange[] = [
   },
 ];
 
-export const calculateHoroscope = (birthDate: Date): ZodiacSign | null => {
+export const calculateHoroscope = (birthDate: Date): HoroscopeSign | null => {
   if (isNaN(birthDate.getTime())) {
     return null;
   }

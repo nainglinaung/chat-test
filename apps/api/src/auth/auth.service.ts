@@ -1,8 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
-import { calculateHoroscope } from 'apps/api/util/calculateHoroscope';
-import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -21,25 +19,16 @@ export class AuthService {
       throw new HttpException('user not found', HttpStatus.BAD_REQUEST);
     }
 
-    const horoscope = calculateHoroscope(data.birthday);
-
     const updatedUser = await this.userModel
-      .findByIdAndUpdate(
-        id,
-        { ...data, horoscope },
-        {
-          new: true,
-        },
-      )
+      .findByIdAndUpdate(id, data, {
+        new: true,
+      })
       .lean();
 
     return updatedUser;
   }
 
   async createUser(data) {
-    const saltOrRounds = 10;
-    data.hashedPassword = await bcrypt.hash(data.password, saltOrRounds);
-
     const existingUser = await this.userModel.findOne({ email: data.email });
 
     if (existingUser) {
@@ -49,7 +38,12 @@ export class AuthService {
       );
     }
 
-    const user = await this.userModel.create(data);
+    const newUser = new this.userModel({
+      ...data,
+      hashedPassword: data.password,
+    });
+
+    const user = await newUser.save();
 
     const payload = { sub: user._id.toString() };
 
@@ -65,10 +59,7 @@ export class AuthService {
       throw new HttpException('could not login', HttpStatus.BAD_REQUEST);
     }
 
-    const passwordValid = await bcrypt.compare(
-      data.password,
-      user.hashedPassword,
-    );
+    const passwordValid = user.comparePassword(data.password);
 
     if (!passwordValid) {
       throw new HttpException('could not login', HttpStatus.BAD_REQUEST);
