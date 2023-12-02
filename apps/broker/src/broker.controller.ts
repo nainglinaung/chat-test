@@ -1,12 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { BrokerService } from './broker.service';
+import { EventPattern } from '@nestjs/microservices';
+import { SendMessageEvent } from 'apps/api/src/sendMessage.event';
 
 @Controller()
 export class BrokerController {
   constructor(private readonly brokerService: BrokerService) {}
 
-  @Get()
-  getHello(): string {
-    return this.brokerService.getHello();
+  @EventPattern('message_printed')
+  handleSendMessage(data: SendMessageEvent) {
+    this.brokerService.sendMessage(data);
   }
 }

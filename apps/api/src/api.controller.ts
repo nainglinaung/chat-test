@@ -9,7 +9,7 @@ import {
   Get,
 } from '@nestjs/common';
 import { ApiService } from './api.service';
-import { LoginDTO, RegisterDTO, ProfileDTO } from './auth/auth.dto';
+import { LoginDTO, RegisterDTO, ProfileDTO, MessageDTO } from './auth/auth.dto';
 import { AccessTokenGuard } from './auth/AccessTokenGuard';
 
 @UseInterceptors(ClassSerializerInterceptor)
@@ -43,5 +43,11 @@ export class ApiController {
   @Post('/updateProfile')
   updateProfile(@Body() data: ProfileDTO, @Request() req) {
     return this.apiService.updateProfile(req.user, data);
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Post('/sendMessage')
+  sendMessage(@Body() message: MessageDTO) {
+    return this.apiService.sendMessage(message);
   }
 }

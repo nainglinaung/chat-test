@@ -7,6 +7,20 @@ import {
   MinLength,
 } from 'class-validator';
 
+export class MessageDTO {
+  @IsString()
+  @IsNotEmpty()
+  message: string;
+
+  @IsString()
+  @IsNotEmpty()
+  sender: string;
+
+  @IsString()
+  @IsNotEmpty()
+  receiver: string;
+}
+
 export class LoginDTO {
   @IsEmail()
   @IsNotEmpty()
