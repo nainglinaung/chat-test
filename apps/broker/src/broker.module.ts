@@ -1,12 +1,19 @@
 import { Module } from '@nestjs/common';
 import { BrokerController } from './broker.controller';
-import { BrokerService } from './broker.service';
+// import { BrokerService } from './broker.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MessageModule } from './message/message.module';
+import { ConfigModule } from '@nestjs/config';
+
+console.log(process.env.DATABASE_URL);
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.DATABASE_URL), MessageModule],
+  imports: [
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.DATABASE_URL),
+    MessageModule,
+  ],
   controllers: [BrokerController],
-  providers: [BrokerService],
+  // providers: [BrokerService],
 })
 export class BrokerModule {}
